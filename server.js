@@ -5,16 +5,22 @@ var _ = require('lodash');
 
 var works = require('./works.js');
 
+function replySlowly(res, message) {
+    setTimeout(function(){
+        res.send(message);
+    }, 500);
+}
+
 app.get('/', function(req, res) {
-    res.send('hello world');
+    replySlowly(res, 'hello world');
 });
 
 app.get('/painters', function(req, res) {
-    res.send(['Magritte']);
+    replySlowly(res, ['Magritte']);
 });
 
-app.get('/painters/Magritte', function(req, res){
-    res.send({
+app.get('/painters/Magritte', function(req, res) {
+    replySlowly(res, {
         name: 'René Magritte',
         born: '1898-11-21T00:00:00.000',
         died: '1968-08-15T00:00:00.000',
@@ -27,12 +33,28 @@ app.get('/painters/Magritte', function(req, res){
     });
 });
 
+function someComment(index) {
+    return ['Great', 'Marvellous', 'Fun', 'I don\'t like it', 'It\'s fun', 'I love it', 'I hate it'][index%7];
+}
+
+function makeComments(req) {
+    var number = works[req.params.work].paintedIn % 7;
+    var comments = [];
+    for (var i = 0; i < number; i++) {
+        comments.push(someComment(works[req.params.work].paintedIn + i));
+    }
+    return comments;
+}
 app.get('/painters/Magritte/works', function(req, res) {
     res.send(_.keys(works));
 });
 
 app.get('/painters/Magritte/works/:work', function(req, res) {
-    res.send(works[req.params.work]);
+    replySlowly(res, works[req.params.work]);
+});
+
+app.get('/painters/Magritte/works/:work/comments', function(req, res) {
+    replySlowly(res, makeComments(req));
 });
 
 app.get('/painters/Magritte/works/:work/file.jpg', function(req, res) {
