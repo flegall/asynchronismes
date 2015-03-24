@@ -1,8 +1,9 @@
 var express = require('express');
 var app = express();
 
-var works = require('./works.js');
+var _ = require('lodash');
 
+var works = require('./works.js');
 
 app.get('/', function(req, res) {
     res.send('hello world');
@@ -21,14 +22,13 @@ app.get('/painters/Magritte', function(req, res){
             '21 November 1898 – 15 August 1967) was a Belgian surrealist artist. ' +
             'He became well known for a number of witty and thought-provoking images ' +
             'that fall under the umbrella of surrealism. His work is known for ' +
-            'challenging observer\'s preconditioned perceptions of reality.'
+            'challenging observer\'s preconditioned perceptions of reality.',
+        works: _.keys(works)
     });
 });
 
 app.get('/painters/Magritte/works', function(req, res) {
-    res.send(['le_fils_de_lhomme', 'golconde', 'la_reproduction_interdite',
-        'la_trahison_des_images', 'la_condition_humaine', 'les_amants',
-        'le_faux_miroir', 'la_chambre_decoute']);
+    res.send(_.keys(works));
 });
 
 app.get('/painters/Magritte/works/:work', function(req, res) {

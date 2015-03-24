@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "4.12.3"
+    "bluebird": "2.9.14",
+    "express": "4.12.3",
+    "lodash": "^3.5.0",
+    "needle": "0.8.2"
   }
 }
