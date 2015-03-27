@@ -9,6 +9,7 @@ var getWork = function (workName) {
 
 var printWorkTitle = function(work) {
     console.log(work.title);
+    return work;
 };
 
 var getWorkAndComments = function (workName) {
