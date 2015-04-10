@@ -1,9 +1,9 @@
-# How to run the examples:
+# How to run the examples
 
 * Install the dependencies
-
+    
     npm install
-
+    
 * Start the server: 
 
     node server.js
